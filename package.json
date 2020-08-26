@@ -1,0 +1,15 @@
+{
+  "name": "bikefeed",
+  "version": "1.0.0",
+  "description": "Show status of public bike share stations in Oslo",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "bikeshare",
+    "oslo"
+  ],
+  "author": "Martin Folkeseth",
+  "license": "UNLICENSED"
+}
