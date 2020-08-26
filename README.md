@@ -11,7 +11,7 @@ Prerequisits: `>= node 12.10.0`
 
 Open on http://localhost:3000 in browser window.
 
-Feel free to turn off your internet for ten seconds to see the client fail and on again to see it recover.
+Feel free to turn off your internet connection for ten seconds to see the client fail and on again to see it recover.
 
 NOTE: It is preferred that you use an up to date browser as JavaScript does not contain any polyfills.
 
