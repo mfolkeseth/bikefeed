@@ -4,12 +4,29 @@
   "description": "Show status of public bike share stations in Oslo",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server/server.js",
+    "dev": "nodemon --ext \"hbs js\" server/server.js"
   },
   "keywords": [
     "bikeshare",
     "oslo"
   ],
   "author": "Martin Folkeseth",
-  "license": "UNLICENSED"
+  "license": "UNLICENSED",
+  "engines": {
+    "node": ">=12.10.0"
+  },
+  "devDependencies": {
+    "nodemon": "2.0.4",
+    "standard": "14.3.4"
+  },
+  "dependencies": {
+    "@hapi/hapi": "20.0.0",
+    "@hapi/inert": "6.0.2",
+    "@hapi/vision": "6.0.1",
+    "handlebars": "4.7.6",
+    "node-fetch": "2.6.0",
+    "pino": "6.5.1"
+  }
 }

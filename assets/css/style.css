@@ -1,0 +1,90 @@
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+html * {
+   font-family: 'Helvetica Neue', Helvetica, sans-serif; 
+   color: #4e4e58;
+}
+
+body {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+li {
+    background-color: #fdfdfe;
+    border: 1px solid rgba(0,0,0,.125);
+    padding: 10px 20px;
+}
+
+li:nth-child(even) {
+    background-color: #c6c8ca;
+    color: #1b1e21;
+    border-top: 0;
+    border-bottom: 0;
+}
+
+p {
+    margin: 0;
+}
+
+.sr-only {
+    position: absolute;
+    overflow: hidden;
+    width: 1px;
+    height: 1px;
+    clip: rect(0, 0, 0, 0);
+}
+
+.error {
+  color: red;
+}
+
+.error--show {
+  display: block;
+}
+
+.error--hide {
+  display: none;
+}
+
+.item-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.name {
+    font-size: 20px;
+}
+
+.bike-icon {
+    height: 30px;
+    width: 30px;
+    margin-right: 10px;
+}
+
+.dock-icon {
+    margin-right: 10px;
+}
+
+.dock-icon::before {
+    color: white;
+    background-color: #045EC7;
+    border-radius: 5px;
+    content: "P";
+    height: 30px;
+    width: 30px;
+    display: block;
+    text-align: center;
+    line-height: 30px;
+    font-size: 20px;
+}

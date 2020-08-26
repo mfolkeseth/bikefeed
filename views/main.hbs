@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Oslo bikeshare feed</title>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+        <link rel="stylesheet" type="text/css" href="/assets/css/style.css" />
+        <script defer src="/assets/js/app.js"></script>
+    </head>
+    <body>
+        <main>
+            <h1>Bikeshare feed</h1>
+            <p id="error" class="error {{#if error}}error--show{{else}}error--hide{{/if}}">{{{errorMessage}}}</p>
+            <ul id="bikeList">
+                {{#each stations}}
+                <li>
+                    <div class="item-row">
+                        <span class="name">{{{name}}}</span>
+                    </div>
+                    <div class="item-row">
+                        <span class="sr-only">Tilgjengelige sykler:</span>
+                        <img class="bike-icon" alt="" src="/assets/icons/bicycle.svg">
+                        {{{numBikesAvailable}}}
+                    </div>
+                    <div class="item-row">
+                        <span class="sr-only">Tilgjengelige låser:</span>
+                        <span class="dock-icon" aria-hidden="true"></span>
+                        {{{numDocksAvailable}}}
+                    </div>
+                </li>
+                {{/each}}
+            </ul>
+        </main>
+    </body>
+</html>
