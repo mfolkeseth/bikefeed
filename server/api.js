@@ -23,12 +23,17 @@ async function getStations () {
   const stations = stationInfoRaw.data.stations.map(station => {
     const stationInfo = stationStatusRaw.data.stations.find(stationStatus => stationStatus.station_id === station.station_id)
     return {
+      id: station.station_id,
       name: station.name,
       numBikesAvailable: stationInfo.num_bikes_available,
       numDocksAvailable: stationInfo.num_docks_available
     }
   })
-  return stations
+
+  return {
+    lastUpdate: stationStatusRaw.last_updated,
+    stations
+  }
 }
 
 module.exports = {

@@ -1,6 +1,6 @@
 # Bikefeed
 
-Feed showing bike and dock status for public bike share in Oslo
+Realtime feed for piblic bike share in Oslo
 
 ## Run app
 
@@ -15,11 +15,10 @@ Feel free to turn off your internet connection for ten seconds to see the client
 
 NOTE: It is preferred that you use an up to date browser as JavaScript does not contain any polyfills.
 
-## Improvement discussion topics
+## Some discussion topics
 
 * Station list pagination
 * Show stations on map
 * Quicksearch station name
 * Common template for server and client
-* Smart station list update. Add/remove (if out of service) and update numbers
 * Production build for css and js

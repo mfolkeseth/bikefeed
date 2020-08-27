@@ -2,6 +2,7 @@ const Hapi = require('@hapi/hapi')
 const Vision = require('@hapi/vision')
 const Inert = require('@hapi/inert')
 const Handlebars = require('handlebars')
+const Moment = require('moment')
 const logger = require('pino')()
 const path = require('path')
 const api = require('./api.js')
@@ -9,22 +10,36 @@ const api = require('./api.js')
 const viewModel = {
   stations: [],
   error: false,
-  errorMessage: 'Could not get bike stationdata. Try again'
+  errorMessage: 'Could not get bike stationdata. Try again...',
+  lastUpdateTimestamp: 0,
+  lastUpdateText: ''
+}
+
+function updateTimestampText () {
+  if (viewModel.lastUpdateTimestamp > 0) {
+    viewModel.lastUpdateText = Moment.unix(viewModel.lastUpdateTimestamp).fromNow()
+  } else {
+    viewModel.lastUpdateText = 'none'
+  }
 }
 
 async function updateStations () {
   viewModel.stations = []
   try {
     logger.info('Updating stations')
-    viewModel.stations = await api.getStations()
+    const { stations, lastUpdate } = await api.getStations()
+    viewModel.stations = stations
+    viewModel.lastUpdateTimestamp = lastUpdate
+
     viewModel.error = false
   } catch (e) {
     viewModel.error = true
     logger.warn(e)
   }
+  updateTimestampText()
 }
 
-// poll for new bike data
+// poll for new bike data every 10s
 updateStations()
 setInterval(updateStations, 10000)
 

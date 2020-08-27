@@ -11,21 +11,22 @@
         <main>
             <h1>Bikeshare feed</h1>
             <p id="error" class="error {{#if error}}error--show{{else}}error--hide{{/if}}">{{{errorMessage}}}</p>
+            <p class="last-update">Last update: <span id="lastUpdateText">{{{lastUpdateText}}}</span></p>
             <ul id="bikeList">
                 {{#each stations}}
-                <li>
+                <li id="station-{{{id}}}">
                     <div class="item-row">
                         <span class="name">{{{name}}}</span>
                     </div>
                     <div class="item-row">
                         <span class="sr-only">Tilgjengelige sykler:</span>
                         <img class="bike-icon" alt="" src="/assets/icons/bicycle.svg">
-                        {{{numBikesAvailable}}}
+                        <span>{{{numBikesAvailable}}}</span>
                     </div>
                     <div class="item-row">
                         <span class="sr-only">Tilgjengelige låser:</span>
                         <span class="dock-icon" aria-hidden="true"></span>
-                        {{{numDocksAvailable}}}
+                        <span>{{{numDocksAvailable}}}</span>
                     </div>
                 </li>
                 {{/each}}

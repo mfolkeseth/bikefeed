@@ -1,16 +1,14 @@
 /* global fetch, DocumentFragment */
 
 const error = document.getElementById('error')
+const lastUpdateText = document.getElementById('lastUpdateText')
 const bikeList = document.getElementById('bikeList')
 
-function removeStations () {
-  while (bikeList.firstChild) {
-    bikeList.removeChild(bikeList.firstChild)
-  }
-}
+let listRendered = bikeList.childElementCount > 0
 
-function generateStation (station) {
+function generateStationTag (station) {
   const li = document.createElement('li')
+  li.id = `station-${station.id}`
 
   const itemRowName = document.createElement('div')
   itemRowName.classList.add('item-row')
@@ -55,12 +53,42 @@ function generateStation (station) {
   return li
 }
 
-function appendStations (stations) {
+function renderStations (stations) {
   const fragment = new DocumentFragment()
   stations.forEach(station => {
-    fragment.appendChild(generateStation(station))
+    fragment.appendChild(generateStationTag(station))
   })
   bikeList.appendChild(fragment)
+  listRendered = true
+}
+
+function updateStationData (stations) {
+  stations.forEach(station => {
+    const stationToUpdate = bikeList.querySelector(`#station-${station.id}`)
+    const stationRows = stationToUpdate.getElementsByTagName('div')
+
+    const bicycleRow = stationRows[1]
+    const bicycleNumber = bicycleRow.getElementsByTagName('span')[1]
+    bicycleNumber.textContent = station.numBikesAvailable
+
+    const dockRow = stationRows[2]
+    const dockNumber = dockRow.getElementsByTagName('span')[2]
+    dockNumber.textContent = station.numDocksAvailable
+  })
+}
+
+function toggleError (toggleOn) {
+  if (toggleOn) {
+    error.classList.remove('error--hide')
+    error.classList.add('error--show')
+  } else {
+    error.classList.remove('error--show')
+    error.classList.add('error--hide')
+  }
+}
+
+function updateTimestamp (timestamp) {
+  lastUpdateText.textContent = timestamp
 }
 
 function updateStations () {
@@ -68,16 +96,21 @@ function updateStations () {
   fetch('/stations')
     .then(res => res.json())
     .then(json => {
-      removeStations()
-      if (json.error) {
-        error.classList.remove('error--hide')
-        error.classList.add('error--show')
+      toggleError(json.error)
+
+      if (listRendered) {
+        updateStationData(json.stations) // avoid re-rendering the whole list
       } else {
-        error.classList.remove('error--show')
-        error.classList.add('error--hide')
+        if (json.stations.length > 0) { // in case server does not have stations in memory on request
+          renderStations(json.stations)
+        }
       }
-      appendStations(json.stations)
+
+      updateTimestamp(json.lastUpdateText)
+    })
+    .catch((e) => {
+      console.warn('Unable to reach app server', e)
     })
 }
 
-setInterval(updateStations, 10000)
+setInterval(updateStations, 2000)
